@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>LazyLoading</title>
+
+</head>
+<body>
+    <div class="app">
+        <div class="card">
+            <img src="" alt=""><img src="" alt=""><img src="" alt=""><img src="" alt=""><img src="" alt=""><img src="" alt=""><img src="" alt=""><img src="" alt=""><img src="" alt=""><img src="" alt="">
+        </div>
+        
+            <div class="loader "></div>
+        
+        
+    </div>
+    
+</body>
+<script>
+    const card = document.querySelector('.card')
+    const loading = document.querySelector('.loader')
+    let noOfImages =10;
+    function imageRender(){
+       
+        for(let i =0;i<10;i++)
+        {
+             fetch('https://source.unsplash.com/random').then(res=>{
+                let img = document.createElement('img');
+                img.src =res.url
+                card.appendChild(img)
+            })
+        }
+    }
+    imageRender()
+    
+
+    window.onscroll = ()=>{
+        const {scrollTop,clientHeight, scrollHeight}=document.documentElement;
+
+        if(scrollTop+clientHeight+1>=scrollHeight){
+            console.log(scrollHeight)
+            loading.classList.add('show')
+            imageRender()
+
+        }
+        else{
+            loading.classList.remove('show')
+
+
+        }
+    }
+</script>
+</html>
